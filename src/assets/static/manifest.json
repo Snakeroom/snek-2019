@@ -12,13 +12,10 @@
 	"icons": {
 		"128": "icon.png"
 	},
-	"content_scripts": [
-		{
-			"matches": ["https://*.reddit.com/r/CircleofTrust*"],
-			"js": ["content.js"],
-			"run_at": "document_end"
-		}
-	],
+	"background": {
+		"scripts": ["event.js"],
+		"persistent": false
+	},
 
 	"permissions": [
 		"https://*.reddit.com/",
