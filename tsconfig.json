@@ -1,0 +1,38 @@
+{
+	"compilerOptions": {
+		"downlevelIteration": true,
+		"module": "esnext",
+		"moduleResolution": "node",
+		"target": "es2015",
+
+		"baseUrl": "./src",
+		"outDir": "./dist",
+
+		"jsx": "react",
+		"lib": [
+			"dom",
+			"es2017"
+		],
+		"plugins": [
+			{"name": "tslint-language-service"}
+		],
+
+		"strict": true,
+		"sourceMap": true,
+
+		"forceConsistentCasingInFileNames": true,
+		"noFallthroughCasesInSwitch": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+
+		"allowSyntheticDefaultImports": true,
+		"experimentalDecorators": true,
+		"strictFunctionTypes": false,
+		"noImplicitAny": false
+	},
+
+	"exclude": [
+		"node_modules",
+		"dist"
+	]
+}
