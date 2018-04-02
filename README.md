@@ -8,7 +8,7 @@ In the `snek-extenson` directory run
 npm start
 ```
 
-In Chrome go to <chrome://extensions/> and click "Load Unpacked". Give it the
+In Chrome go to the [Chrome Extension Page](chrome://extensions/) and click "Load Unpacked". Give it the
 path to `snek-extension/dist`.
 
 ## Updating
