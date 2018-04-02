@@ -28,6 +28,9 @@ export class App extends React.Component<{}, {}> {
 							name="circle_key"
 							placeholder="Key"
 						/>
+						<span className={style.asmCount}>
+							You've assimilated :: Circles
+						</span>
 						<input type="submit" name="submit" value="Request" />
 					</form>
 				</div>

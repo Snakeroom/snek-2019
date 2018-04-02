@@ -4,8 +4,9 @@ $border-color: gray;
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600');
 
 .container {
-	background: #fff;
-	color: #000;
+	// background: #fff;
+	background: rgb(127, 3, 130);
+	color: white;
 	display: flex;
 	flex-direction: column;
 	// font-family: verdana, arial, helvetica, sans-serif;
@@ -19,7 +20,7 @@ $border-color: gray;
 
 	.title {
 		width: 100%;
-		font-size: 30pt;
+		font-size: 40px;
 		font-weight: 600;
 		text-align: center;
 		margin-bottom: ($margin * 2);
@@ -40,10 +41,14 @@ $border-color: gray;
 
 .form {
 	input {
+		font-size: 12px;
 		background-color: white;
-		border: 1px solid $border-color;
+		// border: 1px solid $border-color;
+		border: none;
 		border-radius: 5px;
-		padding: 5px;
+		padding: 10px;
+		padding-left: 20px;
+		padding-right: 20px;
 		width: 100%;
 		margin-bottom: $margin;
 	}
@@ -51,5 +56,8 @@ $border-color: gray;
 	input[type='submit'] {
 		width: inherit;
 		float: right;
+	}
+
+	.asmCount {
 	}
 }
