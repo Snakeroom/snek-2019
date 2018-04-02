@@ -14,8 +14,8 @@
 	},
 	"content_scripts": [
 		{
-			"matches": ["https://*.reddit.com/r/CircleofTrust"],
-			"js": ["content/index.js"],
+			"matches": ["https://*.reddit.com/r/CircleofTrust*"],
+			"js": ["content.js"],
 			"run_at": "document_end"
 		}
 	],

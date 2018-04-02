@@ -6,6 +6,9 @@ const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
 	entry: {
+		"content": [
+			`${common.paths.src}/content/index.ts`
+		],
 		"popup": [
 			`${common.paths.src}/popup/index.tsx`
 		]

@@ -1,7 +1,7 @@
 process.env.NODE_ENV = "production";
 const base = require("./webpack.base");
 const webpack = require("webpack");
-const BabiliPlugin = require("babili-webpack-plugin");
+const BabiliPlugin = require("babel-minify-webpack-plugin");
 
 module.exports = Object.assign(base, {
 	module: {
