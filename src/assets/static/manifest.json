@@ -1,8 +1,8 @@
 {
 	"manifest_version": 2,
 
-	"name": "circle",
-	"description": "Circle extension",
+	"name": "Sneknet",
+	"description": "Group up together and conquer the circles!",
 	"version": "0.1.0",
 
 	"browser_action": {
@@ -14,7 +14,7 @@
 	},
 	"background": {
 		"scripts": ["event.js"],
-		"persistent": false
+		"persistent": true
 	},
 
 	"permissions": [
