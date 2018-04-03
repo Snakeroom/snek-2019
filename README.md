@@ -27,7 +27,7 @@ git pull # This updates the local code
 npm i && npm start
 ```
 
-## Build Production
+## Run Production
 
 To run a production build, execute the following:
 
