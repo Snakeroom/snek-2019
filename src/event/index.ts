@@ -1,18 +1,8 @@
 import { stringify } from "querystring";
 
-Promise.all([
-	// Request /me for modhash
-	fetch("https://www.reddit.com/api/me.json", { credentials: "include" })
-		.then(res => res.json()),
-
-	// Request main HTML for votehash
-	fetch("https://old.reddit.com", { credentials: "include" })
-		.then(res => res.text())
-]).then(([me, html]) => {
-	// Parse out the setup JSON from the HTML
-	const setup = JSON.parse(`{${/r\.setup\({(.*?)}\)/.exec(html)![1]}}`);
-	connect(me.data.modhash, setup.vote_hash);
-});
+fetch("https://www.reddit.com/api/me.json", { credentials: "include" })
+	.then(res => res.json())
+	.then(me => connect(me.data.modhash));
 
 chrome.runtime.onInstalled.addListener(e => {
 	if (e.reason === "install") {
@@ -25,7 +15,7 @@ chrome.storage.local.get("asmCount", data => {
 	chrome.browserAction.setBadgeText({ text: asmCount.toString() });
 });
 
-const connect = (modhash: string, votehash: string) => {
+const connect = (modhash: string) => {
 	// Common headers for requests
 	const headers = new Headers({
 		"Content-Type": "application/x-www-form-urlencoded",
@@ -50,12 +40,23 @@ const connect = (modhash: string, votehash: string) => {
 		};
 
 		// Try the key first to authenticate
-		fetch("https://www.reddit.com/api/guess_voting_key.json", {
-			method: "POST",
-			body: stringify(guessForm),
-			headers,
-			credentials: "include"
-		}).then(() => {
+		Promise.all([
+			fetch("https://www.reddit.com/api/guess_voting_key.json", {
+				method: "POST",
+				body: stringify(guessForm),
+				headers,
+				credentials: "include"
+			})
+				.then(res => res.json()),
+
+			// Request main HTML for votehash
+			fetch("https://old.reddit.com", { credentials: "include" })
+				.then(res => res.text())
+		]).then(([_, html]) => {
+			// Parse out the setup JSON from the HTML
+			const setup = JSON.parse(`{${/r\.setup\({(.*?)}\)/.exec(html)![1]}}`);
+			const votehash = setup.vote_hash;
+
 			const voteForm = {
 				id: data.payload.id,
 				dir: "1",
@@ -76,7 +77,7 @@ const connect = (modhash: string, votehash: string) => {
 	});
 
 	ws.addEventListener("close", () => {
-		setTimeout(connect.bind(null, modhash, votehash), 5000);
+		setTimeout(connect.bind(null, modhash), 5000);
 	});
 };
 
