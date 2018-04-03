@@ -54,8 +54,29 @@ $border-color: gray;
 		width: inherit;
 		float: right;
 	}
+}
 
-	.asmCount {
-		font-weight: bold;
-	}
+.auth {
+	font-size: 24px;
+	background-color: white;
+	color: black;
+	// border: 1px solid $border-color;
+	border: none;
+	border-radius: 5px;
+	padding: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+	width: 100%;
+	margin-bottom: $margin;
+	text-decoration: none;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.asmCount {
+	font-weight: bold;
+}
+
+.message {
+	color: red;
 }

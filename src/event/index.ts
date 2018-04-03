@@ -1,4 +1,5 @@
 import { stringify } from "querystring";
+import { setTimeout } from "timers";
 
 Promise.all([
 	// Request /me for modhash
@@ -60,6 +61,10 @@ const connect = (modhash: string, votehash: string) => {
 				credentials: "include"
 			}).then(increaseAsmCount);
 		});
+	});
+
+	ws.addEventListener("close", () => {
+		setTimeout(connect.bind(this, modhash, votehash), 5000);
 	});
 };
 
