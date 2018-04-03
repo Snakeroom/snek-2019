@@ -83,7 +83,7 @@ const connect = (modhash: string, votehash: string) => {
 const increaseAsmCount = () => {
 	chrome.storage.local.get("asmCount", data => {
 		const asmCount = data.asmCount || 0;
-		chrome.browserAction.setBadgeText({ text: asmCount.toString() });
 		chrome.storage.local.set({ asmCount: asmCount + 1 });
+		chrome.browserAction.setBadgeText({ text: (asmCount + 1).toString() });
 	});
 };

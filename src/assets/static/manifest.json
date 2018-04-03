@@ -3,7 +3,7 @@
 
 	"name": "Sneknet",
 	"description": "Group up together and conquer the circles!",
-	"version": "0.3.0",
+	"version": "0.3.1",
 
 	"browser_action": {
 		"default_icon": "icon.png",
@@ -16,6 +16,13 @@
 		"scripts": ["event.js"],
 		"persistent": true
 	},
+
+	"content_scripts": [
+		{
+			"matches": ["https://*.reddit.com/*"],
+			"css": ["content.css"]
+		}
+	 ],
 
 	"permissions": [
 		"https://*.reddit.com/",
