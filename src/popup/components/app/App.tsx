@@ -6,7 +6,7 @@ export class App extends React.Component<{}, {}> {
 	render() {
 		return (
 			<main className={style.container}>
-				<div className={style.title}>r/CircleOfTrust</div>
+				<div className={style.title}>r/CircleofTrust</div>
 				<div className={style.content}>
 					<p>
 						Welcome to our bot net of sneks! You are now a slave to
@@ -17,17 +17,13 @@ export class App extends React.Component<{}, {}> {
 						land of the free, you may enter a circle's url and key
 						to convert other likeminded individuals.
 					</p>
-					<form className={style.form}>
-						<input
-							type="text"
-							name="circle_url"
-							placeholder="URL"
-						/>
-						<input
-							type="text"
-							name="circle_key"
-							placeholder="Key"
-						/>
+					<form
+						method="post"
+						action="https://api.sneknet.com/request-circle"
+						className={style.form}
+					>
+						<input type="text" name="url" placeholder="URL" />
+						<input type="text" name="key" placeholder="Key" />
 						<span className={style.asmCount}>
 							You've assimilated :: Circles
 						</span>
