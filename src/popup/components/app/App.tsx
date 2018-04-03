@@ -1,6 +1,6 @@
-import React from 'react'
+import React from "react";
 
-import style from './App.scss'
+import style from "./App.scss";
 
 export class App extends React.Component<{}, {}> {
 	render() {
@@ -31,6 +31,6 @@ export class App extends React.Component<{}, {}> {
 					</form>
 				</div>
 			</main>
-		)
+		);
 	}
 }
