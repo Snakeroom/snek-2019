@@ -1,27 +1,34 @@
 import React from 'react'
+import { stringify } from 'querystring'
 
 import style from './App.scss'
 
 export class App extends React.Component<{}, {}> {
 	state = {
-		circlesJoined: 0,
+		asmCount: 0,
 		url: '',
 		key: ''
 	}
 
+	componentDidMount() {
+		chrome.storage.local.get("asmCount", data => {
+			this.setState({ asmCount: data.asmCount || 0 });
+		});
+	}
+
 	handleSubmit(e) {
-		e.preventDefault
-		console.log('fetching')
+		e.preventDefault();
+
 		fetch('https://api.sneknet.com/request-circle', {
 			method: 'POST',
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
+			headers: new Headers({
+				'Content-Type': 'application/x-www-form-urlencoded'
+			}),
+			body: stringify({
 				url: this.state.url,
 				key: this.state.key
-			})
+			}),
+			credentials: "include"
 		})
 	}
 
@@ -55,8 +62,7 @@ export class App extends React.Component<{}, {}> {
 							}}
 						/>
 						<span className={style.asmCount}>
-							You've assimilated {this.state.circlesJoined}{' '}
-							Circles
+							You've assimilated {this.state.asmCount} Circles
 						</span>
 						<input type="submit" value="Request" />
 					</form>

@@ -1,22 +1,19 @@
 $margin: 10px;
 $border-color: gray;
 
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
 
 .container {
-	// background: #fff;
 	background: rgb(127, 3, 130);
 	color: white;
 	display: flex;
 	flex-direction: column;
-	// font-family: verdana, arial, helvetica, sans-serif;
-	font-family: 'Open Sans', sans-serif;
+	font-family: 'Roboto', sans-serif;
 	font-weight: 300;
 	font-size: 12px;
 	padding: 35px;
 	position: relative;
 	width: 400px;
-	// height: 600px;
 
 	.title {
 		width: 100%;
