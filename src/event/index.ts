@@ -24,7 +24,7 @@ const connect = (modhash: string, votehash: string) => {
 	// Connect to the correct WebSocket server based on env
 	const ws = new WebSocket(
 		process.env.NODE_ENV === "production"
-			? "ws://ws.sneknet.com"
+			? "ws://api.sneknet.com"
 			: "ws://localhost:19884"
 	);
 
