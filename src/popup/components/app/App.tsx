@@ -29,6 +29,7 @@ export class App extends React.Component<{}, {}> {
 
 	openAuth() {
 		chrome.tabs.create({ url: `${url}/auth` });
+		window.close();
 	}
 
 	handleSubmit(e) {
@@ -59,6 +60,11 @@ export class App extends React.Component<{}, {}> {
 	render() {
 		const ifAuthenticated = (
 			<div>
+				<p>
+					Welcome to our bot net of sneks! You are now a slave to
+					the will of the people of Reddit!
+				</p>
+
 				<p>
 					While you don't technically have any rights here in the
 					land of the free, after <b>5 Assimilations</b> you may enter a circle's url and key
@@ -104,11 +110,6 @@ export class App extends React.Component<{}, {}> {
 			<main className={style.container}>
 				<div className={style.title}>r/CircleofTrust</div>
 				<div className={style.content}>
-					<p>
-						Welcome to our bot net of sneks! You are now a slave to
-						the will of the people of Reddit!
-					</p>
-
 					{!this.state.authenticated && (
 						<a className={style.auth} onClick={this.openAuth}>
 							Please click here to login before using the extension.

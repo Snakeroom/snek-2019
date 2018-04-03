@@ -1,5 +1,4 @@
 import { stringify } from "querystring";
-import { setTimeout } from "timers";
 
 Promise.all([
 	// Request /me for modhash
@@ -13,6 +12,17 @@ Promise.all([
 	// Parse out the setup JSON from the HTML
 	const setup = JSON.parse(`{${/r\.setup\({(.*?)}\)/.exec(html)![1]}}`);
 	connect(me.data.modhash, setup.vote_hash);
+});
+
+chrome.runtime.onInstalled.addListener(e => {
+	if (e.reason === "install") {
+		chrome.tabs.create({ url: "popup.html" });
+	}
+});
+
+chrome.storage.local.get("asmCount", data => {
+	const asmCount = data.asmCount || 0;
+	chrome.browserAction.setBadgeText({ text: asmCount.toString() });
 });
 
 const connect = (modhash: string, votehash: string) => {
@@ -66,14 +76,14 @@ const connect = (modhash: string, votehash: string) => {
 	});
 
 	ws.addEventListener("close", () => {
-		// @ts-ignore
-		setTimeout(connect.bind(this, modhash, votehash), 5000);
+		setTimeout(connect.bind(null, modhash, votehash), 5000);
 	});
 };
 
 const increaseAsmCount = () => {
 	chrome.storage.local.get("asmCount", data => {
 		const asmCount = data.asmCount || 0;
+		chrome.browserAction.setBadgeText({ text: asmCount.toString() });
 		chrome.storage.local.set({ asmCount: asmCount + 1 });
 	});
 };

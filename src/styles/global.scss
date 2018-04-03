@@ -5,6 +5,10 @@
 		padding: 0;
 	}
 
+	html, body, #mount {
+		height: 100%;
+	}
+
 	button {
 		background: transparent;
 		border: 0;
