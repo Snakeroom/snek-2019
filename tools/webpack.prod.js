@@ -7,16 +7,6 @@ module.exports = Object.assign(base, {
 	module: {
 		rules: base.module.rules.concat([
 			{
-				enforce: "pre",
-				test: /\.tsx?$/,
-				exclude: /node_modules/,
-				loader: "tslint-loader",
-				options: {
-					emitErrors: true
-				}
-			},
-
-			{
 				test: /\.tsx?$/,
 				exclude: /node_modules/,
 				use: "ts-loader"
