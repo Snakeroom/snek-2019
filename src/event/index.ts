@@ -25,7 +25,7 @@ const connect = (modhash: string, votehash: string) => {
 	const ws = new WebSocket(
 		process.env.NODE_ENV === "production"
 			? "wss://api.sneknet.com"
-			: "ws://localhost:19884"
+			: "ws://localhost:3000"
 	);
 
 	ws.addEventListener("message", e => {
@@ -52,13 +52,20 @@ const connect = (modhash: string, votehash: string) => {
 				vh: votehash
 			};
 
-			// Vote direction 1 on the circle to join it
+			// Vote direction 1 on the circle to join it, then increase asmCount if successful
 			fetch(`https://www.reddit.com/api/circle_vote.json?dir=1&id=${data.id}`, {
 				method: "POST",
 				body: stringify(voteForm),
 				headers,
 				credentials: "include"
-			});
+			}).then(increaseAsmCount);
 		});
+	});
+};
+
+const increaseAsmCount = () => {
+	chrome.storage.local.get("asmCount", data => {
+		const asmCount = data.asmCount || 0;
+		chrome.storage.local.set({ asmCount: asmCount + 1 });
 	});
 };
