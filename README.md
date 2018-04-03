@@ -1,6 +1,6 @@
-# Snek Extension
+# :snake: Snek Extension
 ## Installation
-_The Chrome Extension is coming ssssoon..._
+_The Chrome Extension is coming 🐍ssssoon🐍..._
 
 In the **snek-extenson** directory run the following:
 ```bash
