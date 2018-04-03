@@ -4,5 +4,5 @@ mkdir -p builds/$VERSION
 cd dist
 zip -r ../builds/$VERSION/out.zip ./*
 cd ../builds/$VERSION
-mv out.zip $VERSION.zips
+mv out.zip $VERSION.zip
 cd ../..
