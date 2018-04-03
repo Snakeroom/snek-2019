@@ -4,7 +4,7 @@ _The Chrome Extension is coming 🐍ssssoon🐍..._
 
 In the **snek-extenson** directory run the following:
 ```bash
-npm i && npm start
+npm i && npm run build
 ```
 This will install the necessary packages needed and build the extension (compiled & unpacked extension files are in the "dist" folder).
 
@@ -18,5 +18,5 @@ To run the most recent update, run
 ```bash
 git pull # This updates the local code
 
-npm i && npm start
+npm i && npm run build
 ```
