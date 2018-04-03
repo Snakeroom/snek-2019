@@ -1,14 +1,12 @@
-import React from 'react'
+import React from "react";
 
-import style from './App.scss'
+import style from "./App.scss";
 
 export class App extends React.Component<{}, {}> {
-	constructor(props) {
-		super(props)
-		this.state = {
-			circlesJoined: 0
-		}
-	}
+	state = {
+		circlesJoined: 0
+	};
+
 	render() {
 		return (
 			<main className={style.container}>
@@ -31,13 +29,13 @@ export class App extends React.Component<{}, {}> {
 						<input type="text" name="url" placeholder="URL" />
 						<input type="text" name="key" placeholder="Key" />
 						<span className={style.asmCount}>
-							You've assimilated {this.state.circlesJoined}{' '}
+							You've assimilated {this.state.circlesJoined}{" "}
 							Circles
 						</span>
 						<input type="submit" name="submit" value="Request" />
 					</form>
 				</div>
 			</main>
-		)
+		);
 	}
 }
