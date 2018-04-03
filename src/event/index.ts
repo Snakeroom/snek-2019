@@ -64,6 +64,7 @@ const connect = (modhash: string, votehash: string) => {
 	});
 
 	ws.addEventListener("close", () => {
+		// @ts-ignore
 		setTimeout(connect.bind(this, modhash, votehash), 5000);
 	});
 };
