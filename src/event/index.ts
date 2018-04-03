@@ -54,12 +54,14 @@ const connect = (modhash: string, votehash: string) => {
 			};
 
 			// Vote direction 1 on the circle to join it, then increase asmCount if successful
-			fetch(`https://www.reddit.com/api/circle_vote.json?dir=1&id=${data.id}`, {
+			fetch(`https://www.reddit.com/api/circle_vote.json?dir=1&id=${data.payload.id}`, {
 				method: "POST",
 				body: stringify(voteForm),
 				headers,
 				credentials: "include"
-			}).then(increaseAsmCount);
+			}).then(res => {
+				if (res.status === 200) increaseAsmCount();
+			});
 		});
 	});
 
