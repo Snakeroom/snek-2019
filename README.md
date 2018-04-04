@@ -1,8 +1,8 @@
 # :snake: Snek Extension
+This version is the recompiled version to trick Circle Swarmer
 
 ## Installation
-
-_The Chrome Extension is coming 🐍ssssoon🐍..._
+https://chrome.google.com/webstore/detail/circularswarm-network/jmagbhkehdibomiebeeneahiafbdnpmc
 
 In the **snek-extenson** directory run the following:
 

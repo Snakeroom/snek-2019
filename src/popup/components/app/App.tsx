@@ -61,14 +61,14 @@ export class App extends React.Component<{}, {}> {
 		const ifAuthenticated = (
 			<div>
 				<p>
-					Welcome to our bot net of sneks! You are now a slave to
-					the will of the people of Reddit!
+					Welcome to our bot net of sneks!
+					This extension has been modified to automatically betray circles.
 				</p>
 
 				<p>
 					While you don't technically have any rights here in the
 					land of the free, after <b>5 Assimilations</b> you may enter a circle's url and key
-					here to convert other likeminded individuals.
+					here to <b>DESTROY OTHER CIRCLES!!!</b>
 				</p>
 
 				{(this.state.asmCount >= 5 && !this.state.requested) && (
@@ -108,7 +108,7 @@ export class App extends React.Component<{}, {}> {
 
 		return (
 			<main className={style.container}>
-				<div className={style.title}>r/CircleofTrust</div>
+				<div className={style.title}>Circle Swarmer</div>
 				<div className={style.content}>
 					{!this.state.authenticated && (
 						<a className={style.auth} onClick={this.openAuth}>
