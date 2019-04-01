@@ -7,9 +7,8 @@ node_modules
 .vscode/*
 !.vscode/settings.json
 !.vscode/launch.json
+!.vscode/tasks.json
 
 # Misc
-builds
 dist
-*.log
-*.scss.d.ts
+builds

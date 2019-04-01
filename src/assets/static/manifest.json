@@ -1,9 +1,9 @@
 {
 	"manifest_version": 2,
 
-	"name": "Sneknet",
-	"description": "Group up together and conquer the circles!",
-	"version": "0.4.0",
+	"name": "Snek",
+	"description": "Help the community build the narrative on Sequence",
+	"version": "1.0.0",
 
 	"browser_action": {
 		"default_icon": "icon.png",
@@ -17,16 +17,5 @@
 		"persistent": true
 	},
 
-	"content_scripts": [
-		{
-			"all_frames": true,
-			"matches": ["https://*.reddit.com/*"],
-			"css": ["content.css"]
-		}
-	 ],
-
-	"permissions": [
-		"https://*.reddit.com/",
-		"storage"
-	]
+	"permissions": ["https://www.reddit.com/api/*", "storage"]
 }

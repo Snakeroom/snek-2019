@@ -1,4 +1,4 @@
-<!--
+/**
 Copyright (C) Snakeroom Contributors 2019
 
 This program is free software: you can redistribute it and/or modify
@@ -13,20 +13,8 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
--->
+*/
 
-<!DOCTYPE html>
-<html>
-	<head>
-		<link rel="stylesheet" href="popup.css">
-	</head>
-	<body>
-		<main id="main">
-			Thanks for installing Snek!
-			<br /><br /><br />
-			<strong>Total votes so far: </strong><span id="votes">0</span>
-		</main>
-
-		<script src="popup.js"></script>
-	</body>
-</html>
+chrome.storage.local.get("voted", ({ voted }) => {
+	document.getElementById("votes")!.textContent = (voted || []).length;
+});
