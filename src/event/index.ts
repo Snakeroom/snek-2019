@@ -29,7 +29,7 @@ const connect = (modhash: string) => {
 		"x-modhash": modhash
 	});
 
-	const ws = new WebSocket("ws://localhost:9090");
+	const ws = new WebSocket("wss://snake.lud.fun");
 	ws.addEventListener("message", e => {
 		const data = JSON.parse(e.data);
 		// We only handle `scenes`
