@@ -2,8 +2,6 @@
 
 ## Installation
 
-_The Chrome Extension is coming 🐍ssssoon🐍..._
-
 In the **snek-extenson** directory run the following:
 
 ```bash
@@ -26,14 +24,3 @@ git pull # This updates the local code
 
 npm i && npm start
 ```
-
-## Run Production
-
-To run a production build, execute the following:
-
-```bash
-npm i && npm run build
-```
-
-This will connect your extension to the production servers and add your
-browser to the primary network.
