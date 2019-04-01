@@ -16,12 +16,26 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 import { stringify } from "querystring";
+import { v4 } from "uuid";
 
 fetch("https://www.reddit.com/api/me.json", { credentials: "include" })
 	.then(res => res.json())
-	.then(me => connect(me.data.modhash));
+	.then(me =>
+		chrome.storage.local.get("id", ({ id }) => {
+			connect(
+				id,
+				me.data.modhash
+			);
+		})
+	);
 
-const connect = (modhash: string) => {
+chrome.runtime.onInstalled.addListener(details => {
+	if (details.reason === "install") {
+		chrome.storage.local.set({ id: v4() });
+	}
+});
+
+const connect = (userId: string, modhash: string) => {
 	// Common headers for requests
 	const headers = new Headers({
 		"Content-Type": "application/x-www-form-urlencoded",
@@ -37,7 +51,7 @@ const connect = (modhash: string) => {
 
 		chrome.storage.local.get("voted", ({ voted }: { voted: string[] }) => {
 			voted = voted || [];
-			const toVote = data.names.filter(n => !voted.includes(n));
+			const toVote = data.fullnames.filter(n => !voted.includes(n));
 			for (const name of toVote) {
 				fetch("https://www.reddit.com/api/sequence_vote.json", {
 					method: "POST",
@@ -55,10 +69,17 @@ const connect = (modhash: string) => {
 
 			voted.push(...toVote);
 			chrome.storage.local.set({ voted });
+			ws.send(
+				JSON.stringify({
+					type: "science",
+					username: userId,
+					upvoted: voted.length
+				})
+			);
 		});
 	});
 
 	ws.addEventListener("close", () => {
-		setTimeout(connect.bind(null, modhash), 5000);
+		setTimeout(connect.bind(null, userId, modhash), 5000);
 	});
 };
