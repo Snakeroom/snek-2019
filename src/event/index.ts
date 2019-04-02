@@ -83,13 +83,17 @@ const connect = (scienceUUID: string, modhash: string) => {
 
 			voted.push(...toVote);
 			chrome.storage.local.set({ voted });
-			ws.send(
-				JSON.stringify({
-					type: "science",
-					uuid: scienceUUID,
-					upvoted: voted.length
-				})
-			);
+			chrome.storage.sync.get("scienceEnabled", (result) => {
+				if (result.scienceEnabled) {
+					ws.send(
+						JSON.stringify({
+							type: "science",
+							uuid: scienceUUID,
+							upvoted: voted.length
+						})
+					);
+				}
+			})
 		});
 	});
 
