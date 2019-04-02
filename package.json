@@ -3,8 +3,8 @@
 	"private": true,
 	"version": "0.0.0",
 	"scripts": {
-		"build": "webpack-cli --progress --config webpack.config.js",
-		"start": "webpack-cli --watch --progress --config webpack.config.js",
+		"build": "webpack-cli --mode production --progress --config webpack.config.js",
+		"start": "webpack-cli --mode development --watch --progress --config webpack.config.js",
 		"test": "exit 0"
 	},
 	"devDependencies": {

@@ -42,5 +42,6 @@ module.exports = {
 			}
 		]
 	},
-	plugins: [new CopyPlugin([{ from: "./src/assets/static" }])]
+	plugins: [new CopyPlugin([{ from: "./src/assets/static" }])],
+	devtool: "source-map"
 };
