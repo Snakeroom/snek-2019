@@ -42,8 +42,8 @@ h1 {
 
 /* Flash the vote counter when a new vote is sent */
 #votes {
-  transition: color 0.3s;
+	transition: color 0.3s;
 }
 #votes.flash {
-  color: #FF4500;
+	color: #ff4500;
 }
