@@ -21,9 +21,9 @@ import { v4 } from "uuid";
 fetch("https://www.reddit.com/api/me.json", { credentials: "include" })
 	.then(res => res.json())
 	.then(me =>
-		chrome.storage.local.get("id", ({ id }) => {
+		chrome.storage.local.get("scienceUUID", ({ scienceUUID }) => {
 			connect(
-				id,
+				scienceUUID,
 				me.data.modhash
 			);
 		})
@@ -31,19 +31,22 @@ fetch("https://www.reddit.com/api/me.json", { credentials: "include" })
 
 chrome.runtime.onInstalled.addListener(details => {
 	if (details.reason === "install") {
-		chrome.storage.local.set({ id: v4() });
+		chrome.storage.local.set({ scienceUUID: v4() });
 	}
 });
 
-const connect = (userId: string, modhash: string) => {
+const connect = (scienceUUID: string, modhash: string) => {
 	// Common headers for requests
 	const headers = new Headers({
 		"Content-Type": "application/x-www-form-urlencoded",
-		origin: "https://www.reddit.com",
 		"x-modhash": modhash
 	});
 
-	const ws = new WebSocket("wss://snake.lud.fun");
+	const ws = new WebSocket(
+		process.env.NODE_ENV === "development"
+			? "ws://localhost:9090"
+			: "wss://snake.lud.fun"
+	);
 	ws.addEventListener("message", e => {
 		const data = JSON.parse(e.data);
 		// We only handle `scenes`
@@ -51,20 +54,31 @@ const connect = (userId: string, modhash: string) => {
 
 		chrome.storage.local.get("voted", ({ voted }: { voted: string[] }) => {
 			voted = voted || [];
-			const toVote = data.fullnames.filter(n => !voted.includes(n));
+			const toVote = data.fullnames.filter(
+				(n: string) => !voted.includes(n)
+			);
+			let timeout = 0;
 			for (const name of toVote) {
-				fetch("https://www.reddit.com/api/sequence_vote.json", {
-					method: "POST",
-					body: stringify({
-						id: name,
-						direction: 1,
-						raw_json: 1
-					}),
-					headers,
-					credentials: "include"
-				}).then(res => {
-					if (res.status === 200) console.log("voted on " + name);
-				});
+				setTimeout(
+					() =>
+						fetch("https://www.reddit.com/api/sequence_vote.json", {
+							method: "POST",
+							body: stringify({
+								id: name,
+								direction: 1,
+								raw_json: 1
+							}),
+							headers,
+							credentials: "include"
+						}).then(res => {
+							if (res.status === 200) {
+								console.log("voted on " + name);
+							}
+						}),
+					timeout
+				);
+
+				timeout += 1000;
 			}
 
 			voted.push(...toVote);
@@ -72,7 +86,7 @@ const connect = (userId: string, modhash: string) => {
 			ws.send(
 				JSON.stringify({
 					type: "science",
-					username: userId,
+					uuid: scienceUUID,
 					upvoted: voted.length
 				})
 			);
@@ -80,6 +94,6 @@ const connect = (userId: string, modhash: string) => {
 	});
 
 	ws.addEventListener("close", () => {
-		setTimeout(connect.bind(null, userId, modhash), 5000);
+		setTimeout(connect.bind(null, scienceUUID, modhash), 5000);
 	});
 };
