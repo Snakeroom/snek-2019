@@ -24,3 +24,23 @@ chrome.storage.local.get("voted", ({ voted }) => {
 document.getElementById("resetID")!.addEventListener("click", () => {
 	chrome.storage.local.set({ scienceUUID: v4() });
 });
+
+const enableScience: HTMLInputElement = <HTMLInputElement> document.getElementById("enableScience")!;
+
+chrome.storage.sync.get('scienceEnabled', (result) => {
+		if (typeof result.scienceEnabled == "undefined") {
+			chrome.storage.sync.set({ scienceEnabled: true });
+			setTimeout(function() {enableScience.checked = true}, 100);
+			console.log(typeof result.scienceEnabled)
+		} else {
+			console.log(typeof result.scienceEnabled)
+		}
+})
+
+chrome.storage.sync.get('scienceEnabled', (result) => {
+  enableScience.checked = result.scienceEnabled;
+})
+
+enableScience.addEventListener("change", () => {
+	chrome.storage.sync.set({ scienceEnabled: enableScience.checked });
+})
