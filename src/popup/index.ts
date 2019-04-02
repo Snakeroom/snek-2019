@@ -29,8 +29,9 @@ const enableScience: HTMLInputElement = <HTMLInputElement> document.getElementBy
 
 chrome.storage.sync.get('scienceEnabled', (result) => {
 		if (typeof result.scienceEnabled == "undefined") {
-			chrome.storage.sync.set({ scienceEnabled: true });
-			setTimeout(function() {enableScience.checked = true}, 100);
+			chrome.storage.sync.set({ scienceEnabled: true }, function() {
+				enableScience.checked = true;
+			});
 		}
 })
 
