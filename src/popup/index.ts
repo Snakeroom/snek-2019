@@ -25,20 +25,15 @@ document.getElementById("resetID")!.addEventListener("click", () => {
 	chrome.storage.local.set({ scienceUUID: v4() });
 });
 
-const enableScience: HTMLInputElement = <HTMLInputElement> document.getElementById("enableScience")!;
+const enableCheckbox = document.getElementById(
+	"enableScience"
+) as HTMLInputElement;
 
-chrome.storage.sync.get('scienceEnabled', (result) => {
-		if (typeof result.scienceEnabled == "undefined") {
-			chrome.storage.sync.set({ scienceEnabled: true }, function() {
-				enableScience.checked = true;
-			});
-		}
-})
+chrome.storage.sync.get("scienceEnabled", ({ scienceEnabled }) => {
+	enableCheckbox.checked =
+		typeof scienceEnabled === "undefined" ? true : scienceEnabled;
+});
 
-chrome.storage.sync.get('scienceEnabled', (result) => {
-  enableScience.checked = result.scienceEnabled;
-})
-
-enableScience.addEventListener("change", () => {
-	chrome.storage.sync.set({ scienceEnabled: enableScience.checked });
-})
+enableCheckbox.addEventListener("change", () => {
+	chrome.storage.sync.set({ scienceEnabled: enableCheckbox.checked });
+});

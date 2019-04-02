@@ -83,8 +83,8 @@ const connect = (scienceUUID: string, modhash: string) => {
 
 			voted.push(...toVote);
 			chrome.storage.local.set({ voted });
-			chrome.storage.sync.get("scienceEnabled", (result) => {
-				if (result.scienceEnabled) {
+			chrome.storage.sync.get("scienceEnabled", ({ scienceEnabled }) => {
+				if (typeof scienceEnabled === "undefined" || scienceEnabled) {
 					ws.send(
 						JSON.stringify({
 							type: "science",
@@ -93,7 +93,7 @@ const connect = (scienceUUID: string, modhash: string) => {
 						})
 					);
 				}
-			})
+			});
 		});
 	});
 
