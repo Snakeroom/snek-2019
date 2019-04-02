@@ -39,3 +39,11 @@ h1 {
 	content: "\24D8";
 	color: gray;
 }
+
+/* Flash the vote counter when a new vote is sent */
+#votes {
+  transition: color 0.3s;
+}
+#votes.flash {
+  color: #FF4500;
+}
