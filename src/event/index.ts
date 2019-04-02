@@ -83,7 +83,7 @@ const connect = (scienceUUID: string, modhash: string) => {
 
 			voted.push(...toVote);
 			chrome.storage.local.set({ voted });
-			chrome.storage.sync.get('scienceEnabled', (result) => {
+			chrome.storage.sync.get("scienceEnabled", (result) => {
 				if (result.scienceEnabled) {
 					ws.send(
 						JSON.stringify({
