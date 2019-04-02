@@ -36,6 +36,6 @@ h1 {
 }
 
 .info::after {
-	content: "(info)";
+	content: "\24D8";
 	color: gray;
 }
