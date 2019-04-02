@@ -31,6 +31,11 @@ h1 {
 	font: 20px bold Ubuntu;
 }
 
-#votecount {
+.label {
 	font-weight: bold;
+}
+
+.info::after {
+	content: "(info)";
+	color: gray;
 }
