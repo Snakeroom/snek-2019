@@ -25,9 +25,7 @@ document.getElementById("resetID")!.addEventListener("click", () => {
 	chrome.storage.local.set({ scienceUUID: v4() });
 });
 
-const enableCheckbox = document.getElementById(
-	"enableScience"
-) as HTMLInputElement;
+const enableCheckbox = document.getElementById("enableScience") as HTMLInputElement;
 
 chrome.storage.sync.get("scienceEnabled", ({ scienceEnabled }) => {
 	enableCheckbox.checked =

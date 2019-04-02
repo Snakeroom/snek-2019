@@ -18,16 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import { stringify } from "querystring";
 import { v4 } from "uuid";
 
-fetch("https://www.reddit.com/api/me.json", { credentials: "include" })
-	.then(res => res.json())
-	.then(me =>
-		chrome.storage.local.get("scienceUUID", ({ scienceUUID }) => {
-			connect(
-				scienceUUID,
-				me.data.modhash
-			);
-		})
-	);
+chrome.storage.local.get("scienceUUID", ({ scienceUUID }) => connect(scienceUUID));
 
 chrome.runtime.onInstalled.addListener(details => {
 	if (details.reason === "install") {
@@ -35,28 +26,27 @@ chrome.runtime.onInstalled.addListener(details => {
 	}
 });
 
-const connect = (scienceUUID: string, modhash: string) => {
-	// Common headers for requests
-	const headers = new Headers({
-		"Content-Type": "application/x-www-form-urlencoded",
-		"x-modhash": modhash
-	});
-
-	const ws = new WebSocket(
-		process.env.NODE_ENV === "development"
-			? "ws://localhost:9090"
-			: "wss://snake.egg.party"
-	);
-	ws.addEventListener("message", e => {
+const connect = async (scienceUUID: string) => {
+	const ws = new WebSocket("wss://snake.egg.party");
+	ws.addEventListener("message", async e => {
 		const data = JSON.parse(e.data);
 		// We only handle `scenes`
 		if (data.type !== "scenes") return;
 
-		chrome.storage.local.get("voted", ({ voted }: { voted: string[] }) => {
-			voted = voted || [];
-			const toVote = data.fullnames.filter(
-				(n: string) => !voted.includes(n)
-			);
+		// Fetch user's modhash from reddit API, needed to submit vote
+		const me = await fetch("https://www.reddit.com/api/me.json", {
+			credentials: "include"
+		}).then(res => res.json());
+
+		// Common headers for requests
+		const headers = new Headers({
+			"Content-Type": "application/x-www-form-urlencoded",
+			"x-modhash": me.data.modhash
+		});
+
+		chrome.storage.local.get("voted", ({ voted = [] }: { voted: string[] }) => {
+			// Get the posts to vote on, by excluding voted from new posts
+			const toVote = data.fullnames.filter((n: string) => !voted.includes(n));
 			let timeout = 0;
 			for (const name of toVote) {
 				setTimeout(
@@ -71,18 +61,20 @@ const connect = (scienceUUID: string, modhash: string) => {
 							headers,
 							credentials: "include"
 						}).then(res => {
-							if (res.status === 200) {
-								console.log("voted on " + name);
-							}
+							if (res.ok) console.log("voted on " + name);
 						}),
 					timeout
 				);
 
+				// Offset every request from each other by 1 second, to reduce load
 				timeout += 1000;
 			}
 
+			// Update voted array with new votes and save to storage
 			voted.push(...toVote);
 			chrome.storage.local.set({ voted });
+
+			// If science is enabled, send it over the websocket
 			chrome.storage.sync.get("scienceEnabled", ({ scienceEnabled }) => {
 				if (typeof scienceEnabled === "undefined" || scienceEnabled) {
 					ws.send(
@@ -98,6 +90,7 @@ const connect = (scienceUUID: string, modhash: string) => {
 	});
 
 	ws.addEventListener("close", () => {
-		setTimeout(connect.bind(null, scienceUUID, modhash), 5000);
+		// Retry connection in 5 seconds
+		setTimeout(connect.bind(null, scienceUUID), 5000);
 	});
 };
