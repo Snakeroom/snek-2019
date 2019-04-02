@@ -45,7 +45,7 @@ const connect = (scienceUUID: string, modhash: string) => {
 	const ws = new WebSocket(
 		process.env.NODE_ENV === "development"
 			? "ws://localhost:9090"
-			: "wss://snake.lud.fun"
+			: "wss://snake.egg.party"
 	);
 	ws.addEventListener("message", e => {
 		const data = JSON.parse(e.data);

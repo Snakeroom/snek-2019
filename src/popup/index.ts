@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+import { v4 } from "uuid";
+
 chrome.storage.local.get("voted", ({ voted }) => {
 	document.getElementById("votes")!.textContent = (voted || []).length;
+});
+
+document.getElementById("resetID")!.addEventListener("click", () => {
+	chrome.storage.local.set({ scienceUUID: v4() });
 });
