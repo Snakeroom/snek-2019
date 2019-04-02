@@ -31,9 +31,6 @@ chrome.storage.sync.get('scienceEnabled', (result) => {
 		if (typeof result.scienceEnabled == "undefined") {
 			chrome.storage.sync.set({ scienceEnabled: true });
 			setTimeout(function() {enableScience.checked = true}, 100);
-			console.log(typeof result.scienceEnabled)
-		} else {
-			console.log(typeof result.scienceEnabled)
 		}
 })
 
