@@ -15,9 +15,18 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-html {
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html,
+body {
 	background-color: #222;
 	color: #999;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
 }
 
 .logo {
@@ -25,43 +34,76 @@ html {
 	height: 80px;
 }
 
-.buttons {
-    margin: 0 10px;
-    padding: 10px 15px;
-    color: #222;
-    background-color: #999;
-    border-radius: 5px;
-    font-weight: 700;
-    border-bottom: 3px solid #777;
-    transition: .1s linear;
+.button {
+	border: 0;
+	outline: 0;
+	padding: 10px 15px;
+	color: #222;
+	background-color: #999;
+	border-radius: 5px;
+	font-weight: 700;
+	border-bottom: 3px solid #777;
+	transition: 100ms linear;
 }
 
+.button:hover {
+	background-color: #888;
+}
 
 #main {
-	width: 250px;
-	height: 280px;
+	width: 300px;
 	display: flex;
-	align-items: center;
-	justify-content: center;
+	flex-direction: column;
+	padding: 20px;
 }
 
-#inner {
+#header {
+	align-items: center;
+	border-bottom: 1px solid #999;
 	text-align: center;
 }
 
+.section {
+	align-items: flex-start;
+	display: flex;
+	flex-direction: column;
+	padding: 10px 0;
+}
+
 h1 {
-	font: 20px;
+	font-size: 20px;
 	font-weight: bold;
-	font-family: sans-serif;
 }
 
 .label {
 	font-weight: bold;
 }
 
+p {
+	margin-bottom: 5px;
+}
+
+.info {
+	vertical-align: middle;
+}
+
 .info::after {
 	content: "\24D8";
 	color: gray;
+	margin-left: 2px;
+}
+
+.info:hover::after {
+	color: #fff;
+}
+
+.checkbox {
+	width: 25px;
+	height: 25px;
+}
+
+.checkbox:checked {
+	background-color: #2196f3;
 }
 
 /* Flash the vote counter when a new vote is sent */
