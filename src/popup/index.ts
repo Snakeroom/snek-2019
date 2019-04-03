@@ -35,3 +35,20 @@ chrome.storage.sync.get("scienceEnabled", ({ scienceEnabled }) => {
 enableCheckbox.addEventListener("change", () => {
 	chrome.storage.sync.set({ scienceEnabled: enableCheckbox.checked });
 });
+
+/* Todo: finish notifications
+document.getElementById("toggle")!.addEventListener("click", () => {
+
+	chrome.storage.local.get(['notifications'], function(result) {
+		if(result.notifications == 1) {
+			document.getElementById('toggle')!.innerHTML = 'Disable';
+			chrome.storage.local.set({ notifications: 0 });
+		} else {
+			document.getElementById('toggle')!.innerHTML = 'Enable';
+			chrome.storage.local.set({ notifications: 1 });
+		}
+	});
+
+
+});
+*/

@@ -15,9 +15,31 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+html {
+	background-color: #222;
+	color: #999;
+}
+
+.logo {
+	width: 80px;
+	height: 80px;
+}
+
+.buttons {
+    margin: 0 10px;
+    padding: 10px 15px;
+    color: #222;
+    background-color: #999;
+    border-radius: 5px;
+    font-weight: 700;
+    border-bottom: 3px solid #777;
+    transition: .1s linear;
+}
+
+
 #main {
 	width: 250px;
-	height: 100px;
+	height: 280px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -28,7 +50,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 }
 
 h1 {
-	font: 20px bold Ubuntu;
+	font: 20px;
+	font-weight: bold;
+	font-family: sans-serif;
 }
 
 .label {
